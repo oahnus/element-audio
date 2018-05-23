@@ -1,5 +1,6 @@
 <template>
   <section v-bind:class="{border: border}"
+           id="vue-audio"
            v-bind:style="{borderColor: color}"
            class="di main-wrap"
            v-loading="audio.waiting">
@@ -42,7 +43,8 @@
                  v-bind:style="{color: color + '!important'}"
                  :format-tooltip="formatProcessToolTip"
                  @change="changeCurrentTime"
-                 class="slider"></el-slider>
+                 class="slider"
+                 slider></el-slider>
 
       <el-tag size="small"
               class="audio-tag"
@@ -76,7 +78,8 @@
                  :format-tooltip="formatVolumeToolTip"
                  @change="changeVolume"
                  v-bind:style="{color: color}"
-                 class="slider">
+                 class="slider"
+                 slider>
       </el-slider>
 
       <a :href="url"
@@ -336,9 +339,10 @@
 //      if (this.preload === 'none') {
 //        this.audio.waiting = false
 //      }
-      if (this.color) {
-        document.body.style.setProperty('--custom-color', this.color, 'important')
-      }
+//      document.body.style.setProperty('--custom-color', this.color, 'important')
+    },
+    mounted() {
+      document.body.style.setProperty('--custom-color', this.color, 'important')
     },
     beforeDestroy() {
       console.log('beforeDestroy')
@@ -390,15 +394,15 @@
     border: 1px solid #0077db;
   }
 </style>
-
+<!-- 修改element 组件的color-->
 <style>
-  :root {
+  #vue-audio {
     --custom-color: '#0077db';
   }
-  .audio-container .slider .el-slider__bar {
+  .audio-container .slider[slider] .el-slider__bar{
     background-color: var(--custom-color);
   }
-  .audio-container .slider .el-slider__button {
+  .audio-container .slider[slider] .el-slider__button {
     border-color: var(--custom-color);
   }
 </style>
